@@ -6,15 +6,18 @@
 
 // 정답과 틀리면 스테이지는 그대로, 다른 문제 나옴
 
-int ifail;
-int* fptr = &ifail;
-int life = 3;
-int intans;
-int* ia = &intans;
+int ifail; // 실패?
+int* fptr = &ifail; // 실패 포인터
+int life = 3; // 생명
+int intans; // 정수가 답일 때
+int* ia = &intans; // 정수 답 포인터
+int ri(int t, int m); // 난수 생성 함수
 void pickg(); // 1 ~ 30 난수 생성 후 caseg 에 보냄
 void caseg(int n); // 1 ~ 30 각각에 해당하는 미니게임을 실행시킴
 void g1(); // 1 ... 30 번 게임
 void g2();
+void g3();
+void g4();
 
 int main()
 {
@@ -35,7 +38,7 @@ int main()
 		ifail = 0;
 		printf("\n\n%d 번째 문제!\n\n", i + 1);
 		*fptr = 0;
-		*ia = 0;
+		*ia = -10000;
 		pickg();
 		if (ifail)
 		{
@@ -53,9 +56,15 @@ int main()
 
 // 함수 시작
 
+int ri(int t, int m)// 난수 생성 함수
+{
+	int su = rand() % t + m;
+	return su;
+}
+
 void pickg()
 {
-	int a = rand() % 2 + 1;
+	int a = ri(4, 1);
 	caseg(a);
 }
 
@@ -69,6 +78,12 @@ void caseg(int n)
 	case 2:
 		g2();
 		break;
+	case 3:
+		g3();
+		break;
+	case 4:
+		g4();
+		break;
 	}
 }
 
@@ -76,9 +91,9 @@ void g1() // 사칙연산
 {
 	int jd;
 	char g;
-	int a = rand() % 10 + 1;
-	int b = rand() % 10 + 1;
-	int giho = rand() % 5 + 1;
+	int a = ri(10, 1);
+	int b = ri(10, 1);
+	int giho = ri(5, 1);
 	switch (giho)
 	{
 	case 1:
@@ -108,7 +123,7 @@ void g1() // 사칙연산
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
 	else
 	{
-		printf("\n\n===== XXX 오답 XXX =====\n\n");
+		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
 		(*fptr)++;
 	}
 }
@@ -119,7 +134,7 @@ void g2() // 문자열 따라 치기
 	char tpt[4];
 	for (int i = 0; i < 3; i++)
 	{
-		tpt[i] = 'a' + rand() % 26;
+		tpt[i] = 'a' + ri(26, 0);
 	}
 	tpt[3] = '\0';
 	printf("따라 치세요!\n");
@@ -133,7 +148,53 @@ void g2() // 문자열 따라 치기
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
 	else
 	{
-		printf("\n\n===== XXX 오답 XXX =====\n\n");
+		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
 		(*fptr)++;
+	}
+}
+
+void g3() // n 번째 원소는?
+{
+	int n = rand() % 10 + 1;
+	int list[10];
+	for (int i = 0; i < 10; i++)
+	{
+		list[i] = ri(9, 0);
+		printf("%d", list[i]);
+	}
+	printf("\n\n\n%d 번째 원소는?\n\n>> ", n);
+	scanf("%d", ia);
+	if (*ia == list[n - 1])
+		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
+	else
+	{
+		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
+		(*fptr)++;
+	}
+}
+
+void g4()// 같은 문자 n번 입력
+{
+	char ans[100];
+	char k = 'a' + ri(26, 0);
+	int n = ri(10, 1);
+	char* jd = malloc(sizeof(char) * 10 + 1);
+	for (int i = 0; i < n; i++)
+	{
+		jd[i] = k;
+	}
+	jd[n] = '\0';
+	printf("\n\n%c 를 %d 번 입력하세요!\n\n>> ", k, n);
+	scanf("%s", ans);
+	if (strcmp(jd, ans) == 0)
+	{
+		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
+		free(jd);
+	}
+	else
+	{
+		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
+		(*fptr)++;
+		free(jd);
 	}
 }

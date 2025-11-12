@@ -18,6 +18,8 @@ void g1(); // 1 ... 30 번 게임
 void g2();
 void g3();
 void g4();
+void g5();
+void g6();
 
 int main()
 {
@@ -64,7 +66,7 @@ int ri(int t, int m)// 난수 생성 함수
 
 void pickg()
 {
-	int a = ri(4, 1);
+	int a = ri(6, 1);
 	caseg(a);
 }
 
@@ -83,6 +85,12 @@ void caseg(int n)
 		break;
 	case 4:
 		g4();
+		break;
+	case 5:
+		g5();
+		break;
+	case 6:
+		g6();
 		break;
 	}
 }
@@ -196,5 +204,46 @@ void g4()// 같은 문자 n번 입력
 		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
 		(*fptr)++;
 		free(jd);
+	}
+}
+
+void g5()// 나머지 유무
+{
+	int a = ri(100, 1);
+	int b = ri(9, 1);
+	int yon;
+	if (a % b == 0)
+		yon = 1;
+	else
+		yon = 0;
+	printf("\n\n나누어 떨어지면 1 아니면 0!\n\n %d / %d\n\n>> ", a, b);
+	scanf("%d", ia);
+	if (*ia == yon)
+		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
+	else
+	{
+		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
+		(*fptr)++;
+	}
+}
+
+void g6()// 이진수 십진수로
+{
+	int ejin[4];
+	int jd = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		ejin[i] = ri(2, 0);
+		printf("%d", ejin[i]);
+		jd += ejin[i] * (1 << (3 - i));
+	}
+	printf("\n\n이진수를 십진수로 변환하세요!\n\n>> ");
+	scanf("%d", ia);
+	if (*ia == jd)
+		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
+	else
+	{
+		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
+		(*fptr)++;
 	}
 }

@@ -12,9 +12,9 @@ int life = 3; // 생명
 int intans; // 정수가 답일 때
 int* ia = &intans; // 정수 답 포인터
 int ri(int t, int m); // 난수 생성 함수
-void pickg(); // 1 ~ 30 난수 생성 후 caseg 에 보냄
-void caseg(int n); // 1 ~ 30 각각에 해당하는 미니게임을 실행시킴
-void g1(); // 1 ... 30 번 게임
+void pickg(); // 난수 생성 후 caseg 에 보냄
+void caseg(int n); // 각각에 해당하는 미니게임을 실행시킴
+void g1(); // 게임
 void g2();
 void g3();
 void g4();
@@ -35,8 +35,14 @@ int main()
 	}
 	printf("====================\n\n시작!!!\n\n====================\n\n\n\n");
 	// 시작
+	time_t st = time(NULL); // 시작 시간
 	for (int i = 0; i < 45; i++)
 	{
+		if (time(NULL) - st >= 80)
+		{
+			printf("\n\n시간 종료.. 실패했습니다...\n\n");
+			exit(0);
+		}
 		ifail = 0;
 		printf("\n\n%d 번째 문제!\n\n", i + 1);
 		*fptr = 0;

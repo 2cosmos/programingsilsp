@@ -3,8 +3,12 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
+#include <Windows.h>
+#include <mmsystem.h>
 
 // 정답과 틀리면 스테이지는 그대로, 다른 문제 나옴
+
+#pragma comment(lib,"winmm.lib")
 
 int ifail; // 실패?
 int* fptr = &ifail; // 실패 포인터
@@ -26,13 +30,17 @@ int main()
 	srand(time(NULL));
 	// 시작 전 알림
 	printf("====================\n\n잠시 후 무작위로 45개의 미니게임들이 튀어나옵니다!\n시간은 1분 20초로 제한 돼있습니다!\n주어진 시간 내로 모든 미니게임을 클리어하세요!\n\n====================\n\n\n");
-	Sleep(3000);
+	PlaySound(TEXT("ready.wav"), NULL, SND_ASYNC);
+	Sleep(14200);
 	// 카운트 다운
 	for (int i = 0; i < 3; i++)
 	{
+		PlaySound(TEXT("ding.wav"), NULL, SND_ASYNC);
+		Sleep(600);
 		printf("%d\n\n", 3 - i);
-		Sleep(1000);
+		Sleep(400);
 	}
+	Sleep(600);
 	printf("====================\n\n시작!!!\n\n====================\n\n\n\n");
 	// 시작
 	time_t st = time(NULL); // 시작 시간
@@ -134,7 +142,10 @@ void g1() // 사칙연산
 	printf("계산 하세요!\n%d %c %d = ??\n\n>> ", a, g, b);
 	scanf("%d", ia);
 	if (*ia == jd)
+	{
+		PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
+	}
 	else
 	{
 		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
@@ -159,7 +170,10 @@ void g2() // 문자열 따라 치기
 	printf("\n\n>> ");
 	scanf("%s", cans);
 	if (strcmp(tpt, cans) == 0)
+	{
+		PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
+	}
 	else
 	{
 		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
@@ -179,7 +193,10 @@ void g3() // n 번째 원소는?
 	printf("\n\n\n%d 번째 원소는?\n\n>> ", n);
 	scanf("%d", ia);
 	if (*ia == list[n - 1])
+	{
+		PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
+	}
 	else
 	{
 		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
@@ -202,6 +219,7 @@ void g4()// 같은 문자 n번 입력
 	scanf("%s", ans);
 	if (strcmp(jd, ans) == 0)
 	{
+		PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
 		free(jd);
 	}
@@ -225,7 +243,10 @@ void g5()// 나머지 유무
 	printf("\n\n나누어 떨어지면 1 아니면 0!\n\n %d / %d\n\n>> ", a, b);
 	scanf("%d", ia);
 	if (*ia == yon)
+	{
+		PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
+	}
 	else
 	{
 		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
@@ -246,7 +267,10 @@ void g6()// 이진수 십진수로
 	printf("\n\n이진수를 십진수로 변환하세요!\n\n>> ");
 	scanf("%d", ia);
 	if (*ia == jd)
+	{
+		PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
+	}
 	else
 	{
 		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");

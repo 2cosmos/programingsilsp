@@ -15,7 +15,7 @@ int* fptr = &ifail; // 실패 포인터
 int life = 3; // 생명
 int intans; // 정수가 답일 때
 int* ia = &intans; // 정수 답 포인터
-void right(); // 효과음 재생
+void right(); // 정답 효과음 재생
 int ri(int t, int m); // 난수 생성 함수
 void pickg(); // 난수 생성 후 caseg 에 보냄
 void caseg(int n); // 각각에 해당하는 미니게임을 실행시킴
@@ -33,7 +33,7 @@ int main()
 {
 	srand(time(NULL));
 	// 시작 전 알림
-	printf("====================\n\n노래가 끝날 때까지 45개의 미니게임을 전부 클리어하세요!\n노래의 길이는 1분 4초 입니다!\n목숨은 총 세 개 이며 문제를 틀릴 때마다 하나 씩 차감됩니다!\n목숨이 0 이 되거나 음악이 종료되면 게임이 끝납니다!\n행운을 빌어요!!\n(이건 외워두세요!)\n{\n강 : l\n중 : k\n약 : j\n}\n\n\n====================\n\n\n");
+	printf("====================\n\n노래가 끝날 때까지 40개의 미니게임을 전부 클리어하세요!\n노래의 길이는 1분 4초 입니다!\n목숨은 총 세 개 이며 문제를 틀릴 때마다 하나 씩 차감됩니다!\n목숨이 0 이 되거나 음악이 종료되면 게임이 끝납니다!\n행운을 빌어요!!\n(이건 외워두세요!)\n\n{\n강! : l\n중! : k\n약! : j\n}\n\n====================\n\n\n");
 	//PlaySound(TEXT("ready.wav"), NULL, SND_ASYNC);
 	mciSendString(TEXT("open \"ready.wav\" type waveaudio alias ready"), NULL, 0, NULL);
 	mciSendString(TEXT("play ready"), NULL, 0, NULL);
@@ -64,10 +64,13 @@ int main()
 
 	// 시작
 	time_t st = time(NULL); // 시작 시간
-	for (int i = 0; i < 45; i++)
+	for (int i = 0; i < 40; i++)
 	{
 		ifail = 0;
-		printf("\n\n%d 번째 문제!\n\n", i + 1);
+		if (i != 40)
+			printf("\n\n%d 번째 문제!\n\n", i + 1);
+		else if (i == 40)
+			printf("\n\n LAST!!!!!!!\n\n");
 		*fptr = 0;
 		*ia = -10000;
 		pickg();
@@ -92,7 +95,7 @@ int main()
 			exit(0);
 		}
 	}
-	printf("\n\n\n====================전부 클리어 하셨어요! 축하드립니다.....====================\n\n\n");
+	printf("\n\n\n==================== 전부 클리어 하셨어요! 축하드립니다..... ====================\n\n\n");
 }
 
 // 함수 시작
@@ -180,7 +183,7 @@ void g1() // 사칙연산
 		jd = a % b;
 		break;
 	}
-	printf("계산 하세요!\n%d %c %d = ??\n\n>> ", a, g, b);
+	printf("계산 하세요!\n\n%d %c %d = ??\n\n>> ", a, g, b);
 	scanf("%d", ia);
 	if (*ia == jd)
 	{
@@ -204,7 +207,7 @@ void g2() // 문자열 따라 치기
 		tpt[i] = 'a' + ri(26, 0);
 	}
 	tpt[3] = '\0';
-	printf("따라 치세요!\n");
+	printf("\n\n따라 치세요!\n\n");
 	for (int i = 0; i < 3; i++)
 	{
 		printf("%c", tpt[i]);
@@ -231,9 +234,9 @@ void g3() // n 번째 원소는?
 	for (int i = 0; i < 10; i++)
 	{
 		list[i] = ri(9, 0);
-		printf("%d", list[i]);
+		printf("%d ", list[i]);
 	}
-	printf("\n\n\n%d 번째 원소는?\n\n>> ", n);
+	printf("\n\n%d 번째 원소는?\n\n>> ", n);
 	scanf("%d", ia);
 	if (*ia == list[n - 1])
 	{

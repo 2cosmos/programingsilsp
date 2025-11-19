@@ -50,8 +50,17 @@ int main()
 	printf("====================\n\n시작!!!\n\n====================\n\n\n\n");
 	//PlaySound(TEXT("tumble.wav"), NULL, SND_ASYNC || SND_LOOP);
 
-	mciSendString(TEXT("open \"tumble.wav\" type waveaudio alias tumble"), NULL, 0, NULL);
-	mciSendString(TEXT("play tumble"), NULL, 0, NULL);
+	int soundplayskstn = ri(2, 1);
+	if (soundplayskstn == 1)
+	{
+		mciSendString(TEXT("open \"tumble.wav\" type waveaudio alias tumble"), NULL, 0, NULL);
+		mciSendString(TEXT("play tumble"), NULL, 0, NULL);
+	}
+	else if (soundplayskstn == 2)
+	{
+		mciSendString(TEXT("open \"choptumble.wav\" type waveaudio alias tumble"), NULL, 0, NULL);
+		mciSendString(TEXT("play tumble"), NULL, 0, NULL);
+	}
 
 	// 시작
 	time_t st = time(NULL); // 시작 시간
@@ -76,11 +85,11 @@ int main()
 				printf("\n\n남은 기회 전부 소진.. 실패!!\n\n");
 				exit(0);
 			}
-			if (time(NULL) - st >= 64)
-			{
-				printf("\n\n시간 종료.. 실패했습니다...\n\n");
-				exit(0);
-			}
+		}
+		if (time(NULL) - st >= 64)
+		{
+			printf("\n\n시간 종료.. 실패했습니다...\n\n");
+			exit(0);
 		}
 	}
 	printf("\n\n\n====================전부 클리어 하셨어요! 축하드립니다.....====================\n\n\n");

@@ -15,7 +15,7 @@ int* fptr = &ifail; // 실패 포인터
 int life = 3; // 생명
 int intans; // 정수가 답일 때
 int* ia = &intans; // 정수 답 포인터
-void sound(char* name); // 효과음 재생
+void right(); // 효과음 재생
 int ri(int t, int m); // 난수 생성 함수
 void pickg(); // 난수 생성 후 caseg 에 보냄
 void caseg(int n); // 각각에 해당하는 미니게임을 실행시킴
@@ -25,12 +25,15 @@ void g3();
 void g4();
 void g5();
 void g6();
+void g7();
+void g8();
+void g9();
 
 int main()
 {
 	srand(time(NULL));
 	// 시작 전 알림
-	printf("====================\n\n잠시 후 무작위로 45개의 미니게임들이 튀어나옵니다!\n노래가 끝날 때까지 미니게임을 완수하세요!\n노래 길이는 1분 4초 입니다!\n주어진 시간 내로 모든 미니게임을 클리어하세요!\n목숨음 3 개 이며 문제가 틀릴 때마다 1 씩 차감 됩니다!\n목숨을 전부 소비해도 게임이 종료됩니다!\n행운을 빌어요!!\n\n====================\n\n\n");
+	printf("====================\n\n노래가 끝날 때까지 45개의 미니게임을 전부 클리어하세요!\n노래의 길이는 1분 4초 입니다!\n목숨은 총 세 개 이며 문제를 틀릴 때마다 하나 씩 차감됩니다!\n목숨이 0 이 되거나 음악이 종료되면 게임이 끝납니다!\n행운을 빌어요!!\n(이건 외워두세요!)\n{\n강 : l\n중 : k\n약 : j\n}\n\n\n====================\n\n\n");
 	//PlaySound(TEXT("ready.wav"), NULL, SND_ASYNC);
 	mciSendString(TEXT("open \"ready.wav\" type waveaudio alias ready"), NULL, 0, NULL);
 	mciSendString(TEXT("play ready"), NULL, 0, NULL);
@@ -54,11 +57,6 @@ int main()
 	time_t st = time(NULL); // 시작 시간
 	for (int i = 0; i < 45; i++)
 	{
-		if (time(NULL) - st >= 64)
-		{
-			printf("\n\n시간 종료.. 실패했습니다...\n\n");
-			exit(0);
-		}
 		ifail = 0;
 		printf("\n\n%d 번째 문제!\n\n", i + 1);
 		*fptr = 0;
@@ -78,12 +76,24 @@ int main()
 				printf("\n\n남은 기회 전부 소진.. 실패!!\n\n");
 				exit(0);
 			}
+			if (time(NULL) - st >= 64)
+			{
+				printf("\n\n시간 종료.. 실패했습니다...\n\n");
+				exit(0);
+			}
 		}
 	}
 	printf("\n\n\n====================전부 클리어 하셨어요! 축하드립니다.....====================\n\n\n");
 }
 
 // 함수 시작
+
+void right()
+{
+	mciSendString(TEXT("close crr"), NULL, 0, NULL);
+	mciSendString(TEXT("open \"cringring.wav\" type waveaudio alias crr"), NULL, 0, NULL);
+	mciSendString(TEXT("play crr"), NULL, 0, NULL);
+}
 
 int ri(int t, int m)// 난수 생성 함수
 {
@@ -93,7 +103,7 @@ int ri(int t, int m)// 난수 생성 함수
 
 void pickg()
 {
-	int a = ri(6, 1);
+	int a = ri(9, 1);
 	caseg(a);
 }
 
@@ -118,6 +128,15 @@ void caseg(int n)
 		break;
 	case 6:
 		g6();
+		break;
+	case 7:
+		g7();
+		break;
+	case 8:
+		g8();
+		break;
+	case 9:
+		g9();
 		break;
 	}
 }
@@ -157,9 +176,7 @@ void g1() // 사칙연산
 	if (*ia == jd)
 	{
 		//PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
-		mciSendString(TEXT("close crr"), NULL, 0, NULL);
-		mciSendString(TEXT("open \"cringring.wav\" type waveaudio alias crr"), NULL, 0, NULL);
-		mciSendString(TEXT("play crr"), NULL, 0, NULL);
+		right();
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
 	}
 	else
@@ -188,9 +205,7 @@ void g2() // 문자열 따라 치기
 	if (strcmp(tpt, cans) == 0)
 	{
 		//PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
-		mciSendString(TEXT("close crr"), NULL, 0, NULL);
-		mciSendString(TEXT("open \"cringring.wav\" type waveaudio alias crr"), NULL, 0, NULL);
-		mciSendString(TEXT("play crr"), NULL, 0, NULL);
+		right();
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
 	}
 	else
@@ -214,9 +229,7 @@ void g3() // n 번째 원소는?
 	if (*ia == list[n - 1])
 	{
 		//PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
-		mciSendString(TEXT("close crr"), NULL, 0, NULL);
-		mciSendString(TEXT("open \"cringring.wav\" type waveaudio alias crr"), NULL, 0, NULL);
-		mciSendString(TEXT("play crr"), NULL, 0, NULL);
+		right();
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
 	}
 	else
@@ -242,9 +255,7 @@ void g4()// 같은 문자 n번 입력
 	if (strcmp(jd, ans) == 0)
 	{
 		//PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
-		mciSendString(TEXT("close crr"), NULL, 0, NULL);
-		mciSendString(TEXT("open \"cringring.wav\" type waveaudio alias crr"), NULL, 0, NULL);
-		mciSendString(TEXT("play crr"), NULL, 0, NULL);
+		right();
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
 		free(jd);
 	}
@@ -270,9 +281,7 @@ void g5()// 나머지 유무
 	if (*ia == yon)
 	{
 		//PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
-		mciSendString(TEXT("close crr"), NULL, 0, NULL);
-		mciSendString(TEXT("open \"cringring.wav\" type waveaudio alias crr"), NULL, 0, NULL);
-		mciSendString(TEXT("play crr"), NULL, 0, NULL);
+		right();
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
 	}
 	else
@@ -297,9 +306,125 @@ void g6()// 이진수 십진수로
 	if (*ia == jd)
 	{
 		//PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
-		mciSendString(TEXT("close crr"), NULL, 0, NULL);
-		mciSendString(TEXT("open \"cringring.wav\" type waveaudio alias crr"), NULL, 0, NULL);
-		mciSendString(TEXT("play crr"), NULL, 0, NULL);
+		right();
+		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
+	}
+	else
+	{
+		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
+		(*fptr)++;
+	}
+}
+
+void g7() // 오름차순 정렬
+{
+	int a, b, c, d, q, w, e, r;
+	printf("\n\n");
+	int arr[4];
+	for (int i = 0; i < 4; i++)
+	{
+		arr[i] = ri(9, 0);
+		printf("%d ", arr[i]);
+	}
+	for (int i = 0; i < 4; i++) // 3 0 7 2
+	{
+		int min = arr[i];
+		for (int j = i; j < 4; j++)
+		{
+			if (min >= arr[j])
+			{
+				int tp = arr[j];
+				arr[j] = arr[i];
+				arr[i] = tp;
+				min = tp;
+			}
+		}
+	}
+	a = arr[0];
+	b = arr[1];
+	c = arr[2];
+	d = arr[3];
+	printf("\n\n공백 포함 ↑오름↑ 차순으로 정렬하세요!\n\n>> ");
+	scanf("%d %d %d %d", &q, &w, &e, &r);
+	if (q == a && w == b && e == c && r == d)
+	{
+		//PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
+		right();
+		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
+	}
+	else
+	{
+		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
+		(*fptr)++;
+	}
+}
+void g8() // 내림차순 정렬
+{
+	int a, b, c, d, q, w, e, r;
+	printf("\n\n");
+	int arr[4];
+	for (int i = 0; i < 4; i++)
+	{
+		arr[i] = ri(9, 0);
+		printf("%d ", arr[i]);
+	}
+	for (int i = 0; i < 4; i++) // 3 0 7 2
+	{
+		int max = arr[i];
+		for (int j = i; j < 4; j++)
+		{
+			if (max <= arr[j])
+			{
+				int tp = arr[j];
+				arr[j] = arr[i];
+				arr[i] = tp;
+				max = tp;
+			}
+		}
+	}
+	a = arr[0];
+	b = arr[1];
+	c = arr[2];
+	d = arr[3];
+	printf("\n\n공백 포함 ↓내림↓ 차순으로 정렬하세요!\n\n>> ");
+	scanf("%d %d %d %d", &q, &w, &e, &r);
+	if (q == a && w == b && e == c && r == d)
+	{
+		//PlaySound(TEXT("cringring.wav"), NULL, SND_ASYNC);
+		right();
+		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
+	}
+	else
+	{
+		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
+		(*fptr)++;
+	}
+}
+void g9()
+{
+	char segi;
+	char ans;
+	char jd;
+	int cs = ri(3, 1);
+	switch (cs)
+	{
+	case 1:
+		printf("\n\n강!\n\n>> ");
+		jd = 'l';
+		break;
+	case 2:
+		printf("\n\n중!\n\n>> ");
+		jd = 'k';
+		break;
+	case 3:
+		printf("\n\n약!\n\n>> ");
+		jd = 'j';
+		break;
+	}
+	scanf(" %c", &ans);
+	if (ans == jd)
+	{
+		right();
 		printf("\n\n===== OOOOOOOOOOOOO 정답 OOOOOOOOOOOOO =====\n\n");
 	}
 	else

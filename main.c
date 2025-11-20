@@ -28,6 +28,7 @@ void g6();
 void g7();
 void g8();
 void g9();
+void g10();
 
 int main()
 {
@@ -444,4 +445,8 @@ void g9()
 		printf("\n\n===== XXXXXXXXXXXXX 오답 XXXXXXXXXXXXX =====\n\n");
 		(*fptr)++;
 	}
+}
+void g10()
+{
+
 }

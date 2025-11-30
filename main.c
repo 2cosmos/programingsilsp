@@ -33,7 +33,7 @@ int main()
 {
 	srand(time(NULL));
 	// 시작 전 알림
-	printf("====================\n\n노래가 끝날 때까지 40개의 미니게임을 전부 클리어하세요!\n노래의 길이는 1분 4초 입니다!\n목숨은 총 세 개 이며 문제를 틀릴 때마다 하나 씩 차감됩니다!\n목숨이 0 이 되거나 음악이 종료되면 게임이 끝납니다!\n행운을 빌어요!!\n(이건 외워두세요!)\n\n{\n강! : l\n중! : k\n약! : j\n}\n\n====================\n\n\n");
+	printf("====================\n\n노래가 끝날 때까지 40개의 미니게임을 전부 클리어하세요!\n노래의 길이는 1분 4초 입니다!\n목숨은 총 세 개 이며 문제를 틀릴 때마다 하나씩 차감됩니다!\n목숨이 0 이 되거나 음악이 종료되면 게임이 끝납니다!\n행운을 빌어요!!\n(이건 외워두세요!)\n\n{\n강! : l\n중! : k\n약! : j\n}\n\n====================\n\n\n");
 	//PlaySound(TEXT("ready.wav"), NULL, SND_ASYNC);
 	mciSendString(TEXT("open \"ready.wav\" type waveaudio alias ready"), NULL, 0, NULL);
 	mciSendString(TEXT("play ready"), NULL, 0, NULL);
